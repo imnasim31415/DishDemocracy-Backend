@@ -85,12 +85,7 @@ def winner(request):
     sortedList=sorted(queryDict.items(), key=lambda x: x[1], reverse=True)
     winnerRestaurant=sortedList[0][0]
     temp=restaurantList[0].restaurant.restaurantId
-    if temp-2>0:
-        previousWinner=Result.objects.get(temp-1)
-        previoussWinner=Result.objects.get(temp-2)
-        secondWinner=0
-        if previousWinner.restaurant.restaurantId==winnerRestaurant and previoussWinner.restaurant.restaurantId==winnerRestaurant:
-            secondWinner=sortedList[1][0]
+    
     finalDict={}
     for o in sortedList:
         rest=Restaurant.objects.get(restaurantId=o[0])

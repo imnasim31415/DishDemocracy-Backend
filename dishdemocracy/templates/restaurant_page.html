@@ -66,6 +66,19 @@
             border-radius: 8px;
             margin-bottom: 10px;
         }
+        .winner{
+            width: 300px;
+            padding: 20px;
+            background: salmon;
+            margin-bottom: 50px;
+           
+            border: none;
+        }.winner a{
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,5 +103,8 @@
             </div>
         {% endfor %}
     </div>
+    <button class="winner">
+        <a href="/winner">View Vote Count</a>
+    </button>
 </body>
 </html>
