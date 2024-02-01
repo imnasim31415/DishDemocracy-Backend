@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Winner of {{today}}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Restaurant Name</th>
+                <th>Vote Count</th>
+            </tr>
+        </thead>
+        {%for o,i in finalDict.items%}
+        {%if o.restaurantId == winner%}
+        <tr style="background: rgb(49, 221, 124);">
+            <th>{{o.name}}</th>
+            <th>{{i}}</th>
+        </tr>{%else%}
+        <tr>
+            <th>{{o.name}}</th>
+            <th>{{i}}</th>
+        </tr>
+        {%endif%}
+        {%endfor%}
+
+    </table>
+</body>
+</html>

@@ -1,15 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: steelblue;
+        }
+
+        .form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 400px;
+            background: whitesmoke;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form > * {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .cont {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        .div {
+            margin-right: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: steelblue;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: white;
+            text-align: center;
+        }
+
+        .cont img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Restaurant Page</title>
 </head>
 <body>
     <h1>Restaurant Page</h1>
-    <form method="POST">
-        {%csrf_token%}
-        <input type="text" name="name"><input type="text"><input type="text">
+    <form method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Enter Name">
+        <input type="text" name="desc" placeholder="Enter Description">
+        <label for="image">Select an Image</label>
+        <input type="file" name="image" id="image">
+        <button type="submit" name="add">Add Menu</button>
     </form>
+    <div class="cont">
+        {% for o in menuList %}
+            <div class="div">
+                <img src="{{ o.image.url }}" alt="">
+                <h3>{{ o.items }}</h3>
+                <p>{{ o.desc }}</p>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>

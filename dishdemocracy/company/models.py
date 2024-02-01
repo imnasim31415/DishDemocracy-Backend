@@ -13,6 +13,7 @@ class Employee(models.Model):
         return self.name
 
 class Restaurant(models.Model):
+    restaurantId=models.IntegerField(blank=True,null=True)
     name = models.CharField(max_length=255,blank=True,null=True)
     username = models.CharField(max_length=255,null=True,blank=True)
     rest_email = models.EmailField(max_length=254,null=True,blank=True)
@@ -23,8 +24,10 @@ class Restaurant(models.Model):
 
 class Menu(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    items = models.CharField(max_length=255)
-    
+    items = models.CharField(max_length=255,null=True,blank=True)
+    desc=models.CharField(max_length=255,null=True,blank=True)
+    image=models.ImageField(upload_to='image/',blank=True,null=True)
+
     def __str__(self):
         return self.items
 
@@ -32,16 +35,16 @@ class Menu(models.Model):
 
 
 class Vote(models.Model):
-    voter = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    
+    voter = models.ForeignKey(Employee, on_delete=models.CASCADE,null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE,null=True)
+    date=models.DateField(null=True,blank=True)
+    def __str__(self):
+        return str(self.voter.name)+" "+str(self.restaurant.name)
     
 
 class Result(models.Model):
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    winner = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE,null=True)
+    date = models.DateField(null=True,blank=True)
     
     def __str__(self):
-        return self.winner
+        return self.restaurant

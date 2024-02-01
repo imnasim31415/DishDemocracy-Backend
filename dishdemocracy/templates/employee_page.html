@@ -1,11 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+        
+        .con {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            text-align: left;
+            max-width: 300px;
+        }
+        
+        .indMenu {
+            margin-top: 15px;
+        }
+        
+        img {
+            max-width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        h3, h4 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            color: #555;
+            margin-top: 5px;
+        }
+        
+
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
     <h1>Employee Page</h1>
+    <div class="main">
+
+        {%for o,i in queryDict.items%}
+        <form method="POST">
+            {%csrf_token%}
+            <div class="con">
+                <h3>{{o.name}}</h3>
+                {%for ii in i%}
+                <div class="indMenu">
+                    <img src={{ii.image.url}} alt="">
+                    <h4>{{ii.items}}</h4>
+                    <p>{{ii.desc}}</p>
+                </div>
+                {%endfor%}
+                {%if checker is 0%}
+                <button type="submit" value="{{o.restaurantId}}" name="vote">Vote</button>
+                {%endif%}
+            </div>
+        </form>
+        {%endfor%}
+    </div>
 </body>
 </html>

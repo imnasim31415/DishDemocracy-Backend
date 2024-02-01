@@ -6,6 +6,7 @@ from .forms import RestaurantForm, EmployeeForm, MenuForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+import datetime
 
 from .models import *
                     # login(request,authenticate(request,username=loginOwner.username,email=loginOwner.email,password=loginOwner.password))
@@ -43,22 +44,90 @@ def home(request):
 
 
 
-def newPage(request):
-    return render(r)
+
 
 def employee_page(request):
-    return render(request, 'employee_page.html')
+    employee=Employee.objects.get(email=request.user.email)
+    restaurantList=Restaurant.objects.filter()
+    today=datetime.datetime.today()
+    checker=0
+    votedList=Vote.objects.filter(voter=employee,date=today)
+    if votedList:
+        checker=1
+    queryDict={}
+    for o in restaurantList:
+        menuList=Menu.objects.filter(restaurant=o)
+        queryDict[o]=menuList
+    if 'vote' in request.POST:
+        restaurant=Restaurant.objects.get(restaurantId=int(request.POST.get('vote')))
+        vote=Vote(
+            restaurant=restaurant,
+            voter=employee,
+            date=today
+        )
+        vote.save()
+        return redirect('/employee_page')
+        
+    cont={
+        'queryDict':queryDict,
+        'checker':checker
+    }
+    return render(request, 'employee_page.html',cont)
 
-
+def winner(request):
+    today=datetime.datetime.today()
+    queryDict={}
+    restaurantList=Vote.objects.filter(date=today)
+    for o in restaurantList:
+        queryDict[o.restaurant.restaurantId]=0
+    for o in restaurantList:
+        queryDict[o.restaurant.restaurantId]+=1
+    sortedList=sorted(queryDict.items(), key=lambda x: x[1], reverse=True)
+    winnerRestaurant=sortedList[0][0]
+    temp=restaurantList[0].restaurant.restaurantId
+    if temp-2>0:
+        previousWinner=Result.objects.get(temp-1)
+        previoussWinner=Result.objects.get(temp-2)
+        secondWinner=0
+        if previousWinner.restaurant.restaurantId==winnerRestaurant and previoussWinner.restaurant.restaurantId==winnerRestaurant:
+            secondWinner=sortedList[1][0]
+    finalDict={}
+    for o in sortedList:
+        rest=Restaurant.objects.get(restaurantId=o[0])
+        finalDict[rest]=o[1]
+    print(winnerRestaurant)
+    cont={
+        'today':today,
+        'finalDict':finalDict,
+        'winner':winnerRestaurant
+    }
+    return render(request,'winner.html',cont)
 def restaurant_page(request):
-    return render(request, 'restaurant_page.html')
+    user=request.user
+    restaurant=Restaurant.objects.get(rest_email=user.email)
+    menuList=Menu.objects.filter(restaurant=restaurant)
+    if 'add' in request.POST:
+        addMenu=Menu(
+            restaurant=restaurant,
+            items=request.POST.get('name'),
+            image=request.FILES.get('image'),
+            desc=request.POST.get('desc')
+        )
+        addMenu.save()
+        return redirect('/restaurant_page')
+    cont={
+        'menuList':menuList
+    }
+    return render(request, 'restaurant_page.html',cont)
 def register(request):
     if 'owner' in request.POST:
                  ownerEmail=request.POST.get('email')
                  ownerPassword=request.POST.get('password')
                  ownerUsername=request.POST.get('username')
                  restName=request.POST.get('restName')
+                 size=len(Restaurant.objects.filter())+1
                  createRestaurant=Restaurant(
+                     restaurantId=size,
                      rest_email=ownerEmail,
                      rest_password=ownerPassword,
                      username=ownerUsername,
