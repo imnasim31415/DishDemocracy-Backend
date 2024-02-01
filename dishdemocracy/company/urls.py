@@ -3,8 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='index'),
-    path('register_employee', views.register_employee, name='register_employee'),
-    path('register_restaurant', views.register_restaurant, name='register_restaurant'),
+    path('register', views.register, name='register_owner'),
+    path('registerEmployee/', views.registerEmployee, name='register_employee'),
     path('employee_page', views.employee_page, name='employee_page'),
+    path('newpage/',views.newPage,name='newPage'),
     path('restaurant_page', views.restaurant_page, name='restaurant_page'),
 ]

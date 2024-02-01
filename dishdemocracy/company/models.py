@@ -3,18 +3,20 @@ from datetime import date
 
 # Create your models here.
 class Employee(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=254, unique=True)
-    password = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, null=True, blank=True)
+    username = models.CharField(max_length=50, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    password = models.CharField(max_length=50, null=True, blank=True)
     prev_vote_date = models.DateField(default=date(1980, 1, 1), null=True, blank=True)
         
     def __str__(self):
         return self.name
-    
+
 class Restaurant(models.Model):
-    name = models.CharField(max_length=255)
-    rest_email = models.EmailField(max_length=254, unique=True)
-    rest_password = models.CharField(max_length=50)
+    name = models.CharField(max_length=255,blank=True,null=True)
+    username = models.CharField(max_length=255,null=True,blank=True)
+    rest_email = models.EmailField(max_length=254,null=True,blank=True)
+    rest_password = models.CharField(max_length=50,null=True,blank=True)
     
     def __str__(self):
         return self.name
@@ -33,6 +35,8 @@ class Vote(models.Model):
     voter = models.ForeignKey(Employee, on_delete=models.CASCADE)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+    
+    
 
 class Result(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)

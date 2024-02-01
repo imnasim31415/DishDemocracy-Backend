@@ -57,10 +57,11 @@
     <form action="" method="POST">
         <h1>Register Page</h1>
         {% csrf_token %}
-        <p>Enter Restaurant Name: {{ form.name }}</p>
-        <p>Enter Restaurant Email: {{ form.rest_email }}</p>
-        <p>Enter Restaurant password: {{ form.rest_password }}</p>
-        <input type='submit' value='SAVE'>
+        <input type="text" name="restName" placeholder="Enter Restaurant name">
+        <input type="email" name="email" placeholder="Enter email" >
+        <input type="text" name="username" placeholder="Enter username">
+        <input type="password" name="password" placeholder="Enter password">
+        <button type="submit" name="owner">Register</button>
     </form>
 </body>
 </html>

@@ -7,5 +7,9 @@
 </head>
 <body>
     <h1>Restaurant Page</h1>
+    <form method="POST">
+        {%csrf_token%}
+        <input type="text" name="name"><input type="text"><input type="text">
+    </form>
 </body>
 </html>

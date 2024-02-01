@@ -57,10 +57,11 @@
     <form action="" method="POST">
         <h1>Register Page</h1>
         {% csrf_token %}
-        <p>Enter Employee Name: {{ form.name }}</p>
-        <p>Enter Employee Email: {{ form.email }}</p>
-        <p>Enter Employee Password: {{ form.password }}</p>
-        <input type='submit' value='SAVE'>
+        <input type="text" name="name" placeholder="Enter name">
+        <input type="email" name="email" placeholder="Enter email" >
+        <input type="text" name="username" placeholder="Enter username">
+        <input type="password" name="password" placeholder="Enter password">
+        <button type="submit" name="employee">Register</button>
     </form>
 </body>
 </html>
