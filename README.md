@@ -93,7 +93,7 @@ User Types:
 ### Restaurant Management
 
 - **Registering Restaurant**
- ![Restaurant Registration Page](https://github.com/imnasim31415/DishDemocracy-Backend/blob/main/dishdemocracy/screenshots/reg%20employe.png)
+ ![Restaurant Registration Page](https://github.com/imnasim31415/DishDemocracy-Backend/blob/main/dishdemocracy/screenshots/reg%20rest.png)
 
 - **Uploading Menu**
 ![Uploading Menu](https://github.com/imnasim31415/DishDemocracy-Backend/blob/main/dishdemocracy/screenshots/menu.png)
